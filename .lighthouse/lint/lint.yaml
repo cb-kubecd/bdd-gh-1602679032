@@ -233,7 +233,7 @@ spec:
           image: github/super-linter:latest
           name: lint
         - args:
-          - 'sleep infinity && ls -al super-linter.report'
+          - 'ls -al super-linter.report && cat super-linter.log'
           command:
           - /bin/bash
           - -c
