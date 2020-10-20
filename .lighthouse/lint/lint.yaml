@@ -94,7 +94,7 @@ spec:
           description: git revision to checkout (branch, tag, sha, ref…)
           name: PULL_PULL_SHA
           type: string
-        - default: source
+        - default: lint
           description: subdirectory inside of /workspace to clone the git repo
           name: subdirectory
           type: string
@@ -173,7 +173,7 @@ spec:
           - mountPath: /etc/podinfo
             name: podinfo
             readOnly: true
-          workingDir: /workspace/source
+          workingDir: /workspace/lint
         steps:
         - args:
           - -c
@@ -221,7 +221,7 @@ spec:
           name: git-merge
           resources: {}
         - args:
-          - 'ln -s /workspace/source /tmp/lint && mkdir -p super-linter.report && ls -al'
+          - 'mkdir -p super-linter.report && ls -al'
           command:
           - /bin/bash
           - -c
@@ -232,6 +232,9 @@ spec:
             value: "true"
           image: github/super-linter:latest
           name: lint
+          volumeMounts:
+          - mountPath: /tmp
+            name: tekton-internal-workspace
         - args:
           - 'ls -al super-linter.report && cat super-linter.log'
           command:
