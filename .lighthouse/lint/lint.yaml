@@ -221,7 +221,7 @@ spec:
           name: git-merge
           resources: {}
         - args:
-          - 'mkdir -p super-linter.report && ls -al'
+          - 'ln -s /workspace/source /tmp/lint && mkdir -p super-linter.report && ls -al'
           command:
           - /bin/bash
           - -c
@@ -230,8 +230,6 @@ spec:
         - env:
           - name: RUN_LOCAL
             value: "true"
-          - name: DEFAULT_WORKSPACE	
-            value: /workspace/source
           image: github/super-linter:latest
           name: lint
         - args:
