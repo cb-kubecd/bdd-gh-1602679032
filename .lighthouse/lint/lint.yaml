@@ -238,7 +238,7 @@ spec:
             name: tekton-internal-workspace
           resources: {}
         - args:
-          - 'echo Done && ls -al super-linter.report && cat super-linter.log'
+          - 'echo done && ls -al super-linter.report && cat super-linter.log'
           command:
           - /bin/bash
           - -c
