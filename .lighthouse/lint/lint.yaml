@@ -227,6 +227,7 @@ spec:
           - -c
           image: centos:7
           name: mkdir-linter-report
+          resources: {}
         - env:
           - name: RUN_LOCAL
             value: "true"
@@ -235,6 +236,7 @@ spec:
           volumeMounts:
           - mountPath: /tmp
             name: tekton-internal-workspace
+          resources: {}
         - args:
           - 'ls -al super-linter.report && cat super-linter.log'
           command:
@@ -242,6 +244,7 @@ spec:
           - -c
           image: centos:7
           name: cat-report
+          resources: {}
         volumes:
         - emptyDir: {}
           name: workspace-volume
