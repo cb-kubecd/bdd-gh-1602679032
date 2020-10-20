@@ -24,3 +24,7 @@ func main() {
 	http.HandleFunc("/", handler)
 	http.ListenAndServe(":8080", nil)
 }
+
+func Something() {
+	     fmt.Printf("hello %s")
+}
