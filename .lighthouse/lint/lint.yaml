@@ -221,7 +221,7 @@ spec:
           name: git-merge
           resources: {}
         - args:
-          - 'mkdir -p super-linter.report && ls -al'
+          - 'mkdir -p super-linter.report && pwd && ls -al'
           command:
           - /bin/bash
           - -c
