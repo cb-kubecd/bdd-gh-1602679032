@@ -173,7 +173,7 @@ spec:
           - mountPath: /etc/podinfo
             name: podinfo
             readOnly: true
-          workingDir: /workspace/lint
+          workingDir: /workspace/source
         steps:
         - args:
           - -c
