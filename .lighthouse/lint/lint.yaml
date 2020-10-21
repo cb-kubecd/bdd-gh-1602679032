@@ -94,7 +94,7 @@ spec:
           description: git revision to checkout (branch, tag, sha, ref…)
           name: PULL_PULL_SHA
           type: string
-        - default: lint
+        - default: source
           description: subdirectory inside of /workspace to clone the git repo
           name: subdirectory
           type: string
@@ -228,14 +228,16 @@ spec:
           image: centos:7
           name: mkdir-linter-report
           resources: {}
-        - env:
+        - args:
+          - 'ln -s /workspace/source /tmp/lint && /action/lib/linter.sh'
+          command:
+          - /bin/sh
+          - -c
+          env:
           - name: RUN_LOCAL
             value: "true"
           image: github/super-linter:latest
           name: lint
-          volumeMounts:
-          - mountPath: /tmp
-            name: tekton-internal-workspace
           resources: {}
         - args:
           - 'echo done4 && ls -al super-linter.report && cat super-linter.log'
