@@ -236,6 +236,8 @@ spec:
           env:
           - name: RUN_LOCAL
             value: "true"
+          - name: FILTER_REGEX_INCLUDE
+            value: ".*"
           image: github/super-linter:latest
           name: lint
           resources: {}
