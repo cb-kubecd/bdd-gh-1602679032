@@ -240,7 +240,7 @@ spec:
           name: lint
           resources: {}
         - args:
-          - 'echo done4 && ls -al super-linter.report && cat super-linter.log'
+          - 'echo done5 && ls -al super-linter.report && cat super-linter.log'
           command:
           - /bin/bash
           - -c
