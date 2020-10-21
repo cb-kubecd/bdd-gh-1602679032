@@ -229,7 +229,7 @@ spec:
           name: mkdir-linter-report
           resources: {}
         - args:
-          - 'ln -s /workspace/source /tmp/lint && cd /tmp/lint && echo in directory $(pwd) && ls -al && /action/lib/linter.sh && sleep infinity'
+          - 'ln -s /workspace/source /tmp/lint && cd /tmp/lint && /action/lib/linter.sh'
           command:
           - /bin/sh
           - -c
@@ -241,9 +241,9 @@ spec:
           - name: VALIDATE_ALL_CODEBASE
             value: "true"          
           - name: DEFAULT_WORKSPACE
-            value: "/tmp/lint"
-          - name: GITHUB_WORKSPACE
-            value: "/tmp/lint"
+            value: "."
+#          - name: GITHUB_WORKSPACE
+ #           value: "/tmp/lint"
           #- name: FILTER_REGEX_INCLUDE
           #  value: ".*"
           image: github/super-linter:latest
