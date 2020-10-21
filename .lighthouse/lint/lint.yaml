@@ -240,6 +240,8 @@ spec:
             value: $(params.PULL_PULL_SHA)          
           - name: VALIDATE_ALL_CODEBASE
             value: "true"          
+          - name: GITHUB_WORKSPACE
+            value: "/tmp/lint"
           #- name: FILTER_REGEX_INCLUDE
           #  value: ".*"
           image: github/super-linter:latest
