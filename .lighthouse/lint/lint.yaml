@@ -229,7 +229,7 @@ spec:
           name: mkdir-linter-report
           resources: {}
         - args:
-          - 'ln -s /workspace/source /tmp/lint && /action/lib/linter.sh'
+          - 'ln -s /workspace/source /tmp/lint && cd /tmp/lint && echo in directory $(pwd) && ls -al && /action/lib/linter.sh'
           command:
           - /bin/sh
           - -c
