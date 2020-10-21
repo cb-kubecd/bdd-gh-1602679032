@@ -234,8 +234,8 @@ spec:
           - /bin/sh
           - -c
           env:
-          - name: RUN_LOCAL
-            value: "true"
+          #- name: RUN_LOCAL
+          #  value: "true"
           - name: VALIDATE_ALL_CODEBASE
             value: "true"          
           #- name: FILTER_REGEX_INCLUDE
