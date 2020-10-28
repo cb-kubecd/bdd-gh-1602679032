@@ -214,6 +214,7 @@ spec:
             #export GITHUB_REPOSITORY="$(params.REPO_OWNER)/$(params.REPO_NAME)"
             #export GITHUB_SHA=$(params.PULL_PULL_SHA)
             #export GITHUB_WORKSPACE="."
+            export OUTPUT_FORMAT="tap"
             export RUN_LOCAL="true"
             export VALIDATE_ALL_CODEBASE="true"
 
