@@ -212,27 +212,23 @@ spec:
             #!/usr/bin/env bash
             export DEFAULT_WORKSPACE="."
             export DISABLE_ERRORS="true"
-            #export GITHUB_REPOSITORY="$(params.REPO_OWNER)/$(params.REPO_NAME)"
-            #export GITHUB_SHA=$(params.PULL_PULL_SHA)
-            #export GITHUB_WORKSPACE="."
             export OUTPUT_DETAILS="detailed"
             export OUTPUT_FORMAT="tap"
             export RUN_LOCAL="true"
             export VALIDATE_ALL_CODEBASE="true"
 
-            echo "running now locally"
             ln -s /workspace/source /tmp/lint
             cd /tmp/lint
             mkdir -p super-linter.report
-            pwd
-            ls -al
             /action/lib/linter.sh
-            echo "============== done"
-            ls -al super-linter.report
-            cat super-linter.log
-            sleep infinity
           image: github/super-linter:latest
           name: lint
+          resources: {}
+        - script: |
+            #!/usr/bin/env bash
+            jx tap -d super-linter.report
+          image: gcr.io/jenkinsxio/jx-tap:latest
+          name: pr-comment
           resources: {}
         volumes:
         - emptyDir: {}
