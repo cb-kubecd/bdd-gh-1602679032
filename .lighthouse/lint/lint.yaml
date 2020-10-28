@@ -247,14 +247,6 @@ spec:
           image: github/super-linter:latest
           name: lint
           resources: {}
-        - args:
-          - 'echo done && ls -al super-linter.report && cat super-linter.log'
-          command:
-          - /bin/bash
-          - -c
-          image: centos:7
-          name: cat-report
-          resources: {}
         volumes:
         - emptyDir: {}
           name: workspace-volume
