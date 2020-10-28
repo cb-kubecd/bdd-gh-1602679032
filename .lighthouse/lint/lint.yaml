@@ -55,6 +55,9 @@ spec:
     - description: git url to clone
       name: REPO_URL
       type: string
+    - description: git webhook raw payload
+      name: gitWebHookPayload
+      type: string
     tasks:
     - name: from-build-pack
       params:
@@ -84,6 +87,8 @@ spec:
         value: $(params.REPO_OWNER)
       - name: REPO_URL
         value: $(params.REPO_URL)
+      - name: gitWebHookPayload
+        value: $(params.gitWebHookPayload)
       resources: {}
       taskSpec:
         params:
@@ -134,6 +139,9 @@ spec:
         - description: git repository owner (user or organisation)
           name: REPO_OWNER
           type: string
+        - description: git webhook raw payload
+          name: gitWebHookPayload
+          type: string
         stepTemplate:
           env:
           - name: BUILD_ID
@@ -162,6 +170,8 @@ spec:
             value: $(params.REPO_OWNER)
           - name: REPO_URL
             value: $(params.REPO_URL)
+          - name: GITHUB_EVENT_PATH
+            value: $(params.gitWebHookPayload)
           name: ""
           resources:
             requests:
