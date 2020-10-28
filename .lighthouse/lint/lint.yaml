@@ -238,11 +238,18 @@ spec:
           image: centos:7
           name: mkdir-linter-report
           resources: {}
-        - args:
-          - 'echo $(params.gitWebHookPayload) > /tmp/payload.json && export GITHUB_EVENT_PATH="/tmp/payload.json" && ln -s /workspace/source /tmp/lint && cd /tmp/lint && /action/lib/linter.sh'
-          command:
-          - /bin/sh
-          - -c
+        - script: |
+            #!/usr/bin/env bash
+            echo "hello"
+            echo ""
+            export GITHUB_EVENT_PATH="/tmp/payload.json" 
+            echo "$(params.gitWebHookPayload)" > $GITHUB_EVENT_PATH
+            echo "==== START"
+            cat $GITHUB_EVENT_PATH
+            echo "==== END"            
+            ln -s /workspace/source /tmp/lint 
+            cd /tmp/lint
+            /action/lib/linter.sh
           env:
           #- name: RUN_LOCAL
           #  value: "true"          
