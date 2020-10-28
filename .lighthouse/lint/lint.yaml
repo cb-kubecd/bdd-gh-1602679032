@@ -245,13 +245,19 @@ spec:
           name: mkdir-linter-report
           resources: {}
         - args:
-          - 'ln -s /workspace/source /tmp/lint && cd /tmp/lint && /action/lib/linter.sh'
+          - 'env | sort | grep GITHUB && ln -s /workspace/source /tmp/lint && cd /tmp/lint && /action/lib/linter.sh'
           command:
           - /bin/sh
           - -c
           env:
           #- name: RUN_LOCAL
           #  value: "true"          
+          - name: GITHUB_ORG
+            value: $(params.REPO_OWNER)          
+          - name: GITHUB_REPO
+            value: $(params.REPO_NAME)          
+          - name: GITHUB_SHA
+            value: $(params.PULL_PULL_SHA)          
           - name: VALIDATE_ALL_CODEBASE
             value: "true"          
           - name: DEFAULT_WORKSPACE
@@ -265,7 +271,7 @@ spec:
           name: lint
           resources: {}
         - args:
-          - 'echo done14 && ls -al super-linter.report && cat super-linter.log'
+          - 'echo done && ls -al super-linter.report && cat super-linter.log'
           command:
           - /bin/bash
           - -c
