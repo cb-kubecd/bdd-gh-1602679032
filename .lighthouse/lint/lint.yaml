@@ -219,7 +219,7 @@ spec:
 
             #export GITHUB_WORKSPACE="."
 
-            echo "running locally"
+            echo "running now locally"
             ln -s /workspace/source /tmp/lint
             cd /tmp/lint
             mkdir -p super-linter.report
