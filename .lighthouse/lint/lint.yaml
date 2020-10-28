@@ -244,10 +244,10 @@ spec:
           - /bin/sh
           - -c
           env:
-          - name: RUN_LOCAL
-            value: "true"          
-          #- name: GITHUB_SHA
-          #  value: $(params.PULL_PULL_SHA)          
+          #- name: RUN_LOCAL
+          #  value: "true"          
+          - name: GITHUB_SHA
+            value: $(params.PULL_PULL_SHA)          
           - name: VALIDATE_ALL_CODEBASE
             value: "true"          
           - name: DEFAULT_WORKSPACE
