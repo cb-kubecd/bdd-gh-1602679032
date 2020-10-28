@@ -210,12 +210,11 @@ spec:
           resources: {}
         - script: |
             #!/usr/bin/env bash
-            export RUN_LOCAL="true"
-            export GITHUB_SHA=$(params.PULL_PULL_SHA)
             export DEFAULT_WORKSPACE="."
+            export GITHUB_SHA=$(params.PULL_PULL_SHA)
+            export GITHUB_WORKSPACE="."
+            export RUN_LOCAL="true"
             export VALIDATE_ALL_CODEBASE="true"
-
-            #export GITHUB_WORKSPACE="."
 
             echo "running now locally"
             ln -s /workspace/source /tmp/lint
