@@ -252,8 +252,9 @@ spec:
             value: "true"          
           - name: DEFAULT_WORKSPACE
             value: "."
-#          - name: GITHUB_WORKSPACE
- #           value: "/tmp/lint"
+          - name: GITHUB_WORKSPACE
+            value: "."
+            #value: "/tmp/lint"
           #- name: FILTER_REGEX_INCLUDE
           #  value: ".*"
           image: github/super-linter:latest
