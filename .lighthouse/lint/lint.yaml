@@ -243,7 +243,7 @@ spec:
             echo "hello"
             echo ""
             export GITHUB_EVENT_PATH="/tmp/payload.json" 
-            echo "$(params.gitWebHookPayload)" > $GITHUB_EVENT_PATH
+            echo $(params.gitWebHookPayload) > $GITHUB_EVENT_PATH
             echo "==== START"
             cat $GITHUB_EVENT_PATH
             echo "==== END"            
