@@ -136,9 +136,6 @@ spec:
         - description: git repository owner (user or organisation)
           name: REPO_OWNER
           type: string
-        - description: git webhook raw payload
-          name: gitWebHookPayload
-          type: string
         stepTemplate:
           env:
           - name: BUILD_ID
