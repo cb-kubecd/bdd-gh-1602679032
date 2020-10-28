@@ -240,9 +240,11 @@ spec:
           resources: {}
         - script: |
             #!/usr/bin/env bash
-            echo "hello"
-            echo ""
+            export GITHUB_REPOSITORY="$(params.REPO_OWNER)/$(params.REPO_NAME)"
             export GITHUB_EVENT_PATH="/tmp/payload.json" 
+            echo "GITHUB_REPOSITORY = $GITHUB_REPOSITORY"
+            echo "GITHUB_EVENT_PATH = $GITHUB_EVENT_PATH"
+            echo ""
             cat << EOF > /tmp/payload.json
             $(params.gitWebHookPayload)
             EOF
