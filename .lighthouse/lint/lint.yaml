@@ -84,8 +84,6 @@ spec:
         value: $(params.REPO_OWNER)
       - name: REPO_URL
         value: $(params.REPO_URL)
-      - name: gitWebHookPayload
-        value: $(params.gitWebHookPayload)
       resources: {}
       taskSpec:
         params:
