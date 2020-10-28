@@ -211,9 +211,9 @@ spec:
         - script: |
             #!/usr/bin/env bash
             export DEFAULT_WORKSPACE="."
-            export GITHUB_REPOSITORY="$(params.REPO_OWNER)/$(params.REPO_NAME)"
-            export GITHUB_SHA=$(params.PULL_PULL_SHA)
-            export GITHUB_WORKSPACE="."
+            #export GITHUB_REPOSITORY="$(params.REPO_OWNER)/$(params.REPO_NAME)"
+            #export GITHUB_SHA=$(params.PULL_PULL_SHA)
+            #export GITHUB_WORKSPACE="."
             export RUN_LOCAL="true"
             export VALIDATE_ALL_CODEBASE="true"
 
@@ -228,12 +228,6 @@ spec:
             ls -al super-linter.report
             cat super-linter.log
             sleep infinity
-          env:
-          - name: GITHUB_TOKEN
-            valueFrom:
-              secretKeyRef:
-                key: password
-                name: tekton-git 
           image: github/super-linter:latest
           name: lint
           resources: {}
