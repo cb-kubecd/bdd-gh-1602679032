@@ -226,7 +226,7 @@ spec:
           resources: {}
         - script: |
             #!/usr/bin/env bash
-            jx-tap -d super-linter.report
+            jx-tap tap -d super-linter.report
           image: gcr.io/jenkinsxio/jx-tap:latest
           name: pr-comment
           resources: {}
