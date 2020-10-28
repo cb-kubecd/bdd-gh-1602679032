@@ -170,12 +170,6 @@ spec:
             value: $(params.REPO_OWNER)
           - name: REPO_URL
             value: $(params.REPO_URL)
-          - name: GITHUB_EVENT_PATH
-            value: $(params.gitWebHookPayload)
-          - name: GITHUB_ORG
-            value: $(params.REPO_OWNER)          
-          - name: GITHUB_REPO
-            value: $(params.REPO_NAME)          
           - name: GITHUB_SHA
             value: $(params.PULL_PULL_SHA)          
           name: ""
@@ -245,17 +239,13 @@ spec:
           name: mkdir-linter-report
           resources: {}
         - args:
-          - 'env | sort | grep GITHUB && ln -s /workspace/source /tmp/lint && cd /tmp/lint && /action/lib/linter.sh'
+          - 'echo $(params.gitWebHookPayload) > /tmp/payload.json && export GITHUB_EVENT_PATH="/tmp/payload.json" && ln -s /workspace/source /tmp/lint && cd /tmp/lint && /action/lib/linter.sh'
           command:
           - /bin/sh
           - -c
           env:
           #- name: RUN_LOCAL
           #  value: "true"          
-          - name: GITHUB_ORG
-            value: $(params.REPO_OWNER)          
-          - name: GITHUB_REPO
-            value: $(params.REPO_NAME)          
           - name: GITHUB_SHA
             value: $(params.PULL_PULL_SHA)          
           - name: VALIDATE_ALL_CODEBASE
