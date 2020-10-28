@@ -172,6 +172,12 @@ spec:
             value: $(params.REPO_URL)
           - name: GITHUB_EVENT_PATH
             value: $(params.gitWebHookPayload)
+          - name: GITHUB_ORG
+            value: $(params.REPO_OWNER)          
+          - name: GITHUB_REPO
+            value: $(params.REPO_NAME)          
+          - name: GITHUB_SHA
+            value: $(params.PULL_PULL_SHA)          
           name: ""
           resources:
             requests:
@@ -246,12 +252,6 @@ spec:
           env:
           #- name: RUN_LOCAL
           #  value: "true"          
-          - name: GITHUB_ORG
-            value: $(params.REPO_OWNER)          
-          - name: GITHUB_REPO
-            value: $(params.REPO_NAME)          
-          - name: GITHUB_SHA
-            value: $(params.PULL_PULL_SHA)          
           - name: VALIDATE_ALL_CODEBASE
             value: "true"          
           - name: DEFAULT_WORKSPACE
