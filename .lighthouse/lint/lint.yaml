@@ -55,7 +55,7 @@ spec:
     - description: git url to clone
       name: REPO_URL
       type: string
-    - description: raw git webhook payload so we can pass things to GitHub Action images
+    - description: raw git webhook payload so we can pass things to GitHub Action images2
       name: gitWebHookPayload
       type: string
     tasks:
