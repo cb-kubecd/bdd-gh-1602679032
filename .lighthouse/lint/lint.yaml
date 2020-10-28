@@ -266,6 +266,11 @@ spec:
             #value: "/tmp/lint"
           #- name: FILTER_REGEX_INCLUDE
           #  value: ".*"
+          - name: GITHUB_TOKEN
+            valueFrom:
+              secretKeyRef:
+                key: password
+                name: tekton-git 
           image: github/super-linter:latest
           name: lint
           resources: {}
