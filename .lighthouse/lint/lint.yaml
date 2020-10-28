@@ -224,8 +224,10 @@ spec:
             export GITHUB_SHA=$(params.PULL_PULL_SHA)
             export DEFAULT_WORKSPACE="."
             export VALIDATE_ALL_CODEBASE="true"
+
             #export GITHUB_WORKSPACE="."
 
+            echo "running locally"
             ln -s /workspace/source /tmp/lint
             cd /tmp/lint
             mkdir -p super-linter.report
