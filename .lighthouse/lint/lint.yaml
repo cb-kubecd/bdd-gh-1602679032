@@ -246,6 +246,10 @@ spec:
           env:
           #- name: RUN_LOCAL
           #  value: "true"          
+          - name: GITHUB_ORG
+            value: $(params.REPO_OWNER)          
+          - name: GITHUB_REPO
+            value: $(params.REPO_NAME)          
           - name: GITHUB_SHA
             value: $(params.PULL_PULL_SHA)          
           - name: VALIDATE_ALL_CODEBASE
