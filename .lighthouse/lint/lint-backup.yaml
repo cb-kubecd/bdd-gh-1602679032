@@ -195,6 +195,18 @@ spec:
           resources: {}
           workingDir: /workspace
         - args:
+          - gitops
+          - git
+          - setup
+          - --namespace
+          - jx-git-operator
+          command:
+          - jx
+          image: gcr.io/jenkinsxio/jx-cli:latest
+          name: git-setup
+          resources: {}
+          workingDir: /workspace
+        - args:
           - '[ -d /builder/home ] || mkdir -p /builder && ln -s /tekton/home /builder/home'
           command:
           - /bin/sh
@@ -218,24 +230,45 @@ spec:
           image: gcr.io/jenkinsxio/builder-jx:2.1.142-761
           name: git-merge
           resources: {}
+        - args:
+          - 'mkdir -p super-linter.report && pwd && ls -al'
+          command:
+          - /bin/bash
+          - -c
+          image: centos:7
+          name: mkdir-linter-report
+          resources: {}
         - script: |
             #!/usr/bin/env bash
-            export GITHUB_SHA=$(params.PULL_PULL_SHA)
-            export DEFAULT_WORKSPACE="."
-            export GITHUB_WORKSPACE="."
-            export VALIDATE_ALL_CODEBASE="true"
-
-            ln -s /workspace/source /tmp/lint
+            export GITHUB_REPOSITORY="$(params.REPO_OWNER)/$(params.REPO_NAME)"
+            export GITHUB_EVENT_PATH="/tmp/payload.json" 
+            export GITHUB_RUN_ID="1"
+            echo "GITHUB_REPOSITORY = $GITHUB_REPOSITORY"
+            echo "GITHUB_EVENT_PATH = $GITHUB_EVENT_PATH"
+            echo ""
+            cat << EOF > /tmp/payload.json
+            $(params.gitWebHookPayload)
+            EOF
+            echo "==== START"
+            cat $GITHUB_EVENT_PATH
+            echo "==== END"            
+            ln -s /workspace/source /tmp/lint 
             cd /tmp/lint
-            mkdir -p super-linter.report
-            pwd
-            ls -al
             /action/lib/linter.sh
-            echo done
-            ls -al super-linter.report
-            cat super-linter.log
-            sleep infinity
           env:
+          #- name: RUN_LOCAL
+          #  value: "true"          
+          - name: GITHUB_SHA
+            value: $(params.PULL_PULL_SHA)          
+          - name: VALIDATE_ALL_CODEBASE
+            value: "true"          
+          - name: DEFAULT_WORKSPACE
+            value: "."
+          - name: GITHUB_WORKSPACE
+            value: "."
+            #value: "/tmp/lint"
+          #- name: FILTER_REGEX_INCLUDE
+          #  value: ".*"
           - name: GITHUB_TOKEN
             valueFrom:
               secretKeyRef:
