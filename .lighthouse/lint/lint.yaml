@@ -100,7 +100,6 @@ spec:
         git config --global --add user.email ${GIT_AUTHOR_EMAIL:-jenkins-x@googlegroups.com}
         git config --global credential.helper store
         git clone $REPO_URL $SUBDIR
-
         cd $SUBDIR
         git checkout $PULL_PULL_SHA
         echo "checked out revision: $PULL_PULL_SHA to dir: $SUBDIR"
