@@ -96,14 +96,15 @@ spec:
     - script: |
         #!/usr/bin/env bash
         mkdir -p $HOME
-        echo "git cloning url: $(params.REPO_URL) to dir: $(params.GIT_SUB_DIR)"
+        export SUBDIR=${GIT_SUB_DIR:-source}
+        echo "git cloning url: $(params.REPO_URL) to dir: $SUBDIR"
         git config --global --add user.name ${GIT_AUTHOR_NAME:-jenkins-x-bot}
         git config --global --add user.email ${GIT_AUTHOR_EMAIL:-jenkins-x@googlegroups.com}
         git config --global credential.helper store
-        git clone $(params.REPO_URL) $(params.GIT_SUB_DIR)
-        cd $(params.GIT_SUB_DIR)
+        git clone $(params.REPO_URL) $SUBDIR
+        cd $SUBDIR
         git checkout $(params.PULL_PULL_SHA)
-        echo checked out revision: $(params.PULL_PULL_SHA) to dir: $(params.GIT_SUB_DIR)
+        echo checked out revision: $(params.PULL_PULL_SHA) to dir: $SUBDIR
       image: gcr.io/jenkinsxio/builder-jx:2.1.142-761
       name: git-clone
       resources: { }
