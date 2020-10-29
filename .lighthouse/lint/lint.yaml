@@ -18,9 +18,9 @@ spec:
   steps:
     - script: |
         #!/usr/bin/env bash
-        mkdir -p $HOME
         export SUBDIR="${WORKSPACE_SOURCE_DIR:-source}"
-        echo "git cloning url: $REPO_URL to dir: $SUBDIR"
+        echo "git cloning url: $REPO_URL version $PULL_PULL_SHA to dir: $SUBDIR"
+        mkdir -p $HOME
         git config --global --add user.name ${GIT_AUTHOR_NAME:-jenkins-x-bot}
         git config --global --add user.email ${GIT_AUTHOR_EMAIL:-jenkins-x@googlegroups.com}
         git config --global credential.helper store
