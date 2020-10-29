@@ -8,9 +8,6 @@ spec:
       requests:
         cpu: 400m
         memory: 512Mi
-    volumeMounts:
-      - mountPath: /home/jenkins
-        name: workspace-volume
     workingDir: /workspace/source
   steps:
     - script: |
@@ -37,7 +34,6 @@ spec:
         - -c
       image: gcr.io/jenkinsxio/builder-jx:2.1.142-761
       name: setup-builder-home
-      resources: { }
     - args:
         - step
         - git
@@ -53,7 +49,6 @@ spec:
         - jx
       image: gcr.io/jenkinsxio/builder-jx:2.1.142-761
       name: git-merge
-      resources: { }
     - script: |
         #!/usr/bin/env bash
         export DEFAULT_WORKSPACE="."
@@ -75,7 +70,3 @@ spec:
         jx-tap tap -d super-linter.report
       image: gcr.io/jenkinsxio/jx-tap:latest
       name: pr-comment
-      resources: { }
-  volumes:
-    - emptyDir: { }
-      name: workspace-volume
