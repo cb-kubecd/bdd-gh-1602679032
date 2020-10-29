@@ -55,8 +55,6 @@ spec:
     env:
       - name: BUILD_ID
         value: $(params.BUILD_ID)
-      - name: GIT_SUB_DIR
-        value: $(params.GIT_SUB_DIR)
       - name: JOB_NAME
         value: $(params.JOB_NAME)
       - name: JOB_SPEC
