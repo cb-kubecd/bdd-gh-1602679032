@@ -55,6 +55,9 @@ spec:
     - description: git url to clone
       name: REPO_URL
       type: string
+    - description: raw git webhook payload so we can pass things to GitHub Action images6
+      name: gitWebHookPayload
+      type: string
     tasks:
     - name: from-build-pack
       params:
@@ -84,6 +87,8 @@ spec:
         value: $(params.REPO_OWNER)
       - name: REPO_URL
         value: $(params.REPO_URL)
+      - name: gitWebHookPayload
+        value: $(params.gitWebHookPayload)
       resources: {}
       taskSpec:
         params:
@@ -134,6 +139,9 @@ spec:
         - description: git repository owner (user or organisation)
           name: REPO_OWNER
           type: string
+        - description: git webhook raw payload
+          name: gitWebHookPayload
+          type: string
         stepTemplate:
           env:
           - name: BUILD_ID
@@ -162,6 +170,8 @@ spec:
             value: $(params.REPO_OWNER)
           - name: REPO_URL
             value: $(params.REPO_URL)
+          - name: GITHUB_SHA
+            value: $(params.PULL_PULL_SHA)          
           name: ""
           resources:
             requests:
@@ -182,6 +192,18 @@ spec:
           - /bin/sh
           image: gcr.io/jenkinsxio/builder-jx:2.1.142-761
           name: git-clone
+          resources: {}
+          workingDir: /workspace
+        - args:
+          - gitops
+          - git
+          - setup
+          - --namespace
+          - jx-git-operator
+          command:
+          - jx
+          image: gcr.io/jenkinsxio/jx-cli:latest
+          name: git-setup
           resources: {}
           workingDir: /workspace
         - args:
@@ -208,27 +230,60 @@ spec:
           image: gcr.io/jenkinsxio/builder-jx:2.1.142-761
           name: git-merge
           resources: {}
-        - script: |
-            #!/usr/bin/env bash
-            export DEFAULT_WORKSPACE="."
-            export DISABLE_ERRORS="true"
-            export OUTPUT_DETAILS="detailed"
-            export OUTPUT_FORMAT="tap"
-            export RUN_LOCAL="true"
-            export VALIDATE_ALL_CODEBASE="true"
-
-            ln -s /workspace/source /tmp/lint
-            cd /tmp/lint
-            mkdir -p super-linter.report
-            /action/lib/linter.sh
-          image: github/super-linter:latest
-          name: lint
+        - args:
+          - 'mkdir -p super-linter.report && pwd && ls -al'
+          command:
+          - /bin/bash
+          - -c
+          image: centos:7
+          name: mkdir-linter-report
           resources: {}
         - script: |
             #!/usr/bin/env bash
-            jx-tap tap -d super-linter.report
-          image: gcr.io/jenkinsxio/jx-tap:latest
-          name: pr-comment
+            export GITHUB_REPOSITORY="$(params.REPO_OWNER)/$(params.REPO_NAME)"
+            export GITHUB_EVENT_PATH="/tmp/payload.json" 
+            export GITHUB_RUN_ID="1"
+            echo "GITHUB_REPOSITORY = $GITHUB_REPOSITORY"
+            echo "GITHUB_EVENT_PATH = $GITHUB_EVENT_PATH"
+            echo ""
+            cat << EOF > /tmp/payload.json
+            $(params.gitWebHookPayload)
+            EOF
+            echo "==== START"
+            cat $GITHUB_EVENT_PATH
+            echo "==== END"            
+            ln -s /workspace/source /tmp/lint 
+            cd /tmp/lint
+            /action/lib/linter.sh
+          env:
+          #- name: RUN_LOCAL
+          #  value: "true"          
+          - name: GITHUB_SHA
+            value: $(params.PULL_PULL_SHA)          
+          - name: VALIDATE_ALL_CODEBASE
+            value: "true"          
+          - name: DEFAULT_WORKSPACE
+            value: "."
+          - name: GITHUB_WORKSPACE
+            value: "."
+            #value: "/tmp/lint"
+          #- name: FILTER_REGEX_INCLUDE
+          #  value: ".*"
+          - name: GITHUB_TOKEN
+            valueFrom:
+              secretKeyRef:
+                key: password
+                name: tekton-git 
+          image: github/super-linter:latest
+          name: lint
+          resources: {}
+        - args:
+          - 'echo done && ls -al super-linter.report && cat super-linter.log'
+          command:
+          - /bin/bash
+          - -c
+          image: centos:7
+          name: cat-report
           resources: {}
         volumes:
         - emptyDir: {}
