@@ -18,7 +18,7 @@ spec:
   steps:
     - script: |
         #!/usr/bin/env bash
-        # allow the source sub diretory name to be passed in via an environment variable
+        # allow the git clone source diretory to be configured in via an environment variable
         export SUBDIR="${WORKSPACE_SOURCE_DIR:-source}"
         echo "git cloning url: $REPO_URL version $PULL_PULL_SHA to dir: $SUBDIR"
         mkdir -p $HOME
