@@ -16,6 +16,11 @@ spec:
       - name: output
         workspace: output
     - name: lint
+      runAfter:
+        - git-clone
+      workspaces:
+      - name: output
+        workspace: output
       taskSpec:
         steps:
         - script: |
