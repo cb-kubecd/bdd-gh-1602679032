@@ -16,7 +16,6 @@ spec:
         #!/usr/bin/env bash
         export DEFAULT_WORKSPACE="."
         export DISABLE_ERRORS="true"
-        #export GITHUB_SHA=$PULL_PULL_SHA
         export OUTPUT_DETAILS="detailed"
         export OUTPUT_FORMAT="tap"
         export RUN_LOCAL="true"
