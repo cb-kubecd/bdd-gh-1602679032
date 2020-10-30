@@ -30,9 +30,8 @@ spec:
         mkdir -p super-linter.report
         #sleep infinity
         /action/lib/linter.sh
-      image: github/super-linter:3.10.2
+      image: docker pull github/super-linter:v3.13.1
       name: lint
-      resources: { }
     - script: |
         #!/usr/bin/env bash
         jx-tap tap -d super-linter.report
