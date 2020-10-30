@@ -6,7 +6,7 @@ spec:
   workspaces:
   - name: output
     description: The git repo will be cloned onto the volume backing this workspace
-    mountPath: /workspace/source
+    mountPath: /workspace
   steps:
   - script: |
       #!/usr/bin/env bash
@@ -38,4 +38,4 @@ spec:
     - jx
     image: gcr.io/jenkinsxio/builder-jx:2.1.142-761
     name: git-merge
-    workingDir: /workspace/source
+    workingDir: /workspace

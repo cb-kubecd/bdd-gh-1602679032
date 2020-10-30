@@ -6,7 +6,7 @@ spec:
   workspaces:
   - name: output
     description: The git repo will be cloned onto the volume backing this workspace
-    mountPath: /workspace/source
+    mountPath: /workspace
   steps:
   - script: |
       #!/usr/bin/env bash
