@@ -5,10 +5,15 @@ metadata:
   annotations:
     lighthouse.jenkins-x.io/loadFileRefs: ".*"
 spec:
+  workspaces:
+  - name: output
   tasks:
   - name: git-clone
     taskRef:
       name: git-clone/git-clone-pr-bad3
+    workspaces:
+    - name: output
+      workspace: output
   - name: lint
     taskSpec:
       steps:

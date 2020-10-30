@@ -3,6 +3,9 @@ kind: Task
 metadata:
   name: git-clone-pr
 spec:
+  workspaces:
+    - name: output
+      description: The git repo will be cloned onto the volume backing this workspace
   steps:
     - script: |
         #!/usr/bin/env bash
