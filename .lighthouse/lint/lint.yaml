@@ -16,6 +16,7 @@ spec:
         #!/usr/bin/env bash
         export DEFAULT_WORKSPACE="."
         export DISABLE_ERRORS="true"
+        export GITHUB_SHA=$PULL_PULL_SHA
         export OUTPUT_DETAILS="detailed"
         export OUTPUT_FORMAT="tap"
         export RUN_LOCAL="true"
@@ -27,9 +28,9 @@ spec:
         pwd
         ls -al
         mkdir -p super-linter.report
-        sleep infinity
+        #sleep infinity
         /action/lib/linter.sh
-      image: github/super-linter:latest
+      image: github/super-linter:3.10.2
       name: lint
       resources: { }
     - script: |
