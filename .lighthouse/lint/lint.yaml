@@ -23,6 +23,8 @@ spec:
 
         ln -s /workspace/source /tmp/lint
         cd /tmp/lint
+        pwd
+        ls -al
         mkdir -p super-linter.report
         /action/lib/linter.sh
       image: github/super-linter:latest
