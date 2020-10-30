@@ -21,6 +21,7 @@ spec:
         export RUN_LOCAL="true"
         export VALIDATE_ALL_CODEBASE="true"
 
+        echo "here we go"
         ln -s /workspace/source /tmp/lint
         cd /tmp/lint
         pwd
