@@ -21,9 +21,9 @@ spec:
         export RUN_LOCAL="true"
         export VALIDATE_ALL_CODEBASE="true"
 
-        #ln -s /workspace/source /tmp/lint
-        #cd /tmp/lint
-        #mkdir -p super-linter.report
+        ln -s /workspace/source /tmp/lint
+        cd /tmp/lint
+        mkdir -p super-linter.report
         /action/lib/linter.sh
       image: github/super-linter:latest
       name: lint
