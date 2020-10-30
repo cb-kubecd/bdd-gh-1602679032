@@ -25,8 +25,6 @@ spec:
         workspaces:
           - name: output
             mountPath: /workspace/source
-        stepTemplate:
-          workingDir: /workspace/source
         steps:
         - script: |
             #!/usr/bin/env bash
@@ -37,6 +35,8 @@ spec:
             export RUN_LOCAL="true"
             export VALIDATE_ALL_CODEBASE="true"
 
+            echo "here we go"
+            ls -al /workspace/source
             ln -s /workspace/source /tmp/lint
             cd /tmp/lint
             mkdir -p super-linter.report
@@ -47,6 +47,7 @@ spec:
             requests:
               cpu: 400m
               memory: 512Mi
+          workingDir: /workspace/source
         - script: |
             #!/usr/bin/env bash
             jx-tap tap -d super-linter.report
@@ -56,6 +57,7 @@ spec:
             requests:
               cpu: 400m
               memory: 512Mi
+          workingDir: /workspace/source
   workspaces:
     - name: output
       volumeClaimTemplate:
