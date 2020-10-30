@@ -35,7 +35,7 @@ spec:
             export RUN_LOCAL="true"
             export VALIDATE_ALL_CODEBASE="true"
 
-            echo "here we go"
+            echo "here we go again"
             ls -al /workspace/source
             ln -s /workspace/source /tmp/lint
             cd /tmp/lint
