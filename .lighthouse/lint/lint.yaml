@@ -22,12 +22,12 @@ spec:
         export RUN_LOCAL="true"
         export VALIDATE_ALL_CODEBASE="true"
 
-        echo "here we go"
-        ln -s /workspace/source /tmp/lint
-        cd /tmp/lint
-        pwd
-        ls -al
-        mkdir -p super-linter.report
+        #echo "here we go"
+        #ln -s /workspace/source /tmp/lint
+        #cd /tmp/lint
+        #pwd
+        #ls -al
+        #mkdir -p super-linter.report
         #sleep infinity
         /action/lib/linter.sh
       image: github/super-linter:v3.13.1
