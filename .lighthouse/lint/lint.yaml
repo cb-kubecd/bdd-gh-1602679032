@@ -23,7 +23,7 @@ spec:
 
         #ln -s /workspace/source /tmp/lint
         #cd /tmp/lint
-        mkdir -p super-linter.report
+        #mkdir -p super-linter.report
         /action/lib/linter.sh
       image: github/super-linter:latest
       name: lint
