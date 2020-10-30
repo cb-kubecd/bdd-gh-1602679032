@@ -10,7 +10,7 @@ spec:
   tasks:
   - name: git-clone
     taskRef:
-      name: git-clone/git-clone-pr-bad3
+      name: git-clone/git-clone-pr
     workspaces:
     - name: output
       workspace: output
