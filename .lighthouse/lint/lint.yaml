@@ -12,24 +12,21 @@ spec:
         memory: 512Mi
     workingDir: /workspace/source
   steps:
-    - script: |
-        #!/usr/bin/env bash
-        export DEFAULT_WORKSPACE="."
-        export DISABLE_ERRORS="true"
-        export OUTPUT_DETAILS="detailed"
-        export OUTPUT_FORMAT="tap"
-        export RUN_LOCAL="true"
-        export VALIDATE_ALL_CODEBASE="true"
-
-        ln -s /workspace/source /tmp/lint
-        cd /tmp/lint
-        pwd
-        ls -al
-        mkdir -p super-linter.report
-        /action/lib/linter.sh
-      image: github/super-linter:latest
+    - env:
+        - name: DEFAULT_WORKSPACE
+          value: "."
+        - name: DISABLE_ERRORS
+          value: "true"
+        - name: OUTPUT_DETAILS
+          value: "detailed"
+        - name: OUTPUT_FORMAT
+          value: "tap"
+        - name: RUN_LOCAL
+          value: "true"
+        - name: VALIDATE_ALL_CODEBASE
+          value: "true"
+      image: github/super-linter:v3.13.1
       name: lint
-      resources: { }
     - script: |
         #!/usr/bin/env bash
         jx-tap tap -d super-linter.report
