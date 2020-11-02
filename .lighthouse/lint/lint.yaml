@@ -29,9 +29,9 @@ spec:
       name: lint
     - script: |
         #!/usr/bin/env bash
-        jx pipeline lint -o super-linter.report/super-linter-lighthouse.tap
+        jx pipeline lint -o super-linter.report/super-linter-pipelines.tap
       image: gcr.io/jenkinsxio/jx-cli:latest
-      name: lint-lighthouse
+      name: lint-pipelines
     - script: |
         #!/usr/bin/env bash
         jx-tap tap -d super-linter.report
