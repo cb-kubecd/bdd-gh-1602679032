@@ -15,4 +15,4 @@ spec:
     optional: false
     trigger: "/bad"
     rerun_command: "/relint"
-    source: "bad6.yaml"
+    source: "bad7.yaml"
