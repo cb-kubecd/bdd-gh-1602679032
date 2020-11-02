@@ -9,10 +9,3 @@ spec:
     trigger: "/lint"
     rerun_command: "/relint"
     source: "lint.yaml"
-  - name: bad
-    context: "bad"
-    always_run: true
-    optional: false
-    trigger: "/bad"
-    rerun_command: "/relint"
-    source: "bad7.yaml"
