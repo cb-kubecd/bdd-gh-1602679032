@@ -29,11 +29,7 @@ spec:
       name: lint
     - script: |
         #!/usr/bin/env bash
-        jx pipeline lint -o super-linter.report/super-linter-pipelines.tap
-      image: gcr.io/jenkinsxio/jx-cli:latest
-      name: lint-pipelines
-    - script: |
-        #!/usr/bin/env bash
+        sleep inifinity
         jx-tap tap -d super-linter.report
       image: gcr.io/jenkinsxio/jx-tap:latest
       name: pr-comment
