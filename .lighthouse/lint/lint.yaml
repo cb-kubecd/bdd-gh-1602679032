@@ -29,6 +29,7 @@ spec:
       name: lint
     - script: |
         #!/usr/bin/env bash
+        sleep infinity
         jx-tap tap -d super-linter.report
       image: gcr.io/jenkinsxio/jx-tap:latest
       name: pr-comment
